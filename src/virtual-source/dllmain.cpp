@@ -4,76 +4,62 @@
 #include "virtual-audio.h"
 
 #define CreateComObject(clsid, iid, var) \
-	CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER, iid, (void **)&var);
+    CoCreateInstance(clsid, NULL, CLSCTX_INPROC_SERVER, iid, (void **)&var);
 
 STDAPI AMovieSetupRegisterServer(CLSID clsServer, LPCWSTR szDescription,
-				 LPCWSTR szFileName,
-				 LPCWSTR szThreadingModel = L"Both",
-				 LPCWSTR szServerType = L"InprocServer32");
+                 LPCWSTR szFileName,
+                 LPCWSTR szThreadingModel = L"Both",
+                 LPCWSTR szServerType = L"InprocServer32");
 STDAPI AMovieSetupUnregisterServer(CLSID clsServer);
 
 #define NUM_VIDEO_FILTERS 4
 
-// {27B05C2D-93DC-474A-A5DA-9BBA34CB2A9C}
-DEFINE_GUID(CLSID_OBS_VirtualV, 0x27b05c2d, 0x93dc, 0x474a, 0xa5, 0xda, 0x9b,
-	    0xba, 0x34, 0xcb, 0x2a, 0x9c);
+// {7BBFF097-B3FB-4B26-B685-7A998DE7CEAD}
+DEFINE_GUID(CLSID_Logitech_C201, 0x7bbff097, 0xb3fb, 0x4b26, 0xb6, 0x85, 0x7a, 0x99, 0x8d, 0xe7, 0xce, 0xad);
 
-DEFINE_GUID(CLSID_OBS_VirtualV2, 0x27b05c2d, 0x93dc, 0x474a, 0xa5, 0xda, 0x9b,
-	    0xba, 0x34, 0xcb, 0x2a, 0x9d);
+// {7BBFF097-B3FB-4B26-B685-7A998DE7CEAE}
+DEFINE_GUID(CLSID_Logitech_C202, 0x7bbff097, 0xb3fb, 0x4b26, 0xb6, 0x85, 0x7a, 0x99, 0x8d, 0xe7, 0xce, 0xae);
 
-DEFINE_GUID(CLSID_OBS_VirtualV3, 0x27b05c2d, 0x93dc, 0x474a, 0xa5, 0xda, 0x9b,
-	    0xba, 0x34, 0xcb, 0x2a, 0x9e);
+// {7BBFF097-B3FB-4B26-B685-7A998DE7CEAF}
+DEFINE_GUID(CLSID_Logitech_C203, 0x7bbff097, 0xb3fb, 0x4b26, 0xb6, 0x85, 0x7a, 0x99, 0x8d, 0xe7, 0xce, 0xaf);
 
-DEFINE_GUID(CLSID_OBS_VirtualV4, 0x27b05c2d, 0x93dc, 0x474a, 0xa5, 0xda, 0x9b,
-	    0xba, 0x34, 0xcb, 0x2a, 0x9f);
-
-// {B750E5CD-5E7E-4ED3-B675-A5003C439997}
-DEFINE_GUID(CLSID_OBS_VirtualA, 0xb750e5cd, 0x5e7e, 0x4ed3, 0xb6, 0x75, 0xa5,
-	    0x0, 0x3c, 0x43, 0x99, 0x97);
+// {7BBFF097-B3FB-4B26-B685-7A998DE7CEB0}
+DEFINE_GUID(CLSID_Logitech_C204, 0x7bbff097, 0xb3fb, 0x4b26, 0xb6, 0x85, 0x7a, 0x99, 0x8d, 0xe7, 0xce, 0xb0);
 
 const AMOVIESETUP_MEDIATYPE AMSMediaTypesV = {&MEDIATYPE_Video,
-					      &MEDIASUBTYPE_YUY2};
+                          &MEDIASUBTYPE_YUY2};
 
 const AMOVIESETUP_MEDIATYPE AMSMediaTypesA = {&MEDIATYPE_Audio,
-					      &MEDIASUBTYPE_PCM};
+                          &MEDIASUBTYPE_PCM};
 
 const AMOVIESETUP_PIN AMSPinV = {
-	(LPWSTR)L"Output", FALSE, TRUE, FALSE,          FALSE,
-	&CLSID_NULL,       NULL,  1,    &AMSMediaTypesV};
+    (LPWSTR)L"Output", FALSE, TRUE, FALSE,          FALSE,
+    &CLSID_NULL,       NULL,  1,    &AMSMediaTypesV};
 
 const AMOVIESETUP_PIN AMSPinA = {
-	(LPWSTR)L"Output", FALSE, TRUE, FALSE,          FALSE,
-	&CLSID_NULL,       NULL,  1,    &AMSMediaTypesA};
+    (LPWSTR)L"Output", FALSE, TRUE, FALSE,          FALSE,
+    &CLSID_NULL,       NULL,  1,    &AMSMediaTypesA};
 
-const AMOVIESETUP_FILTER AMSFilterV = {&CLSID_OBS_VirtualV, L"OBS Virtual Cam",
-				       MERIT_DO_NOT_USE, 1, &AMSPinV};
+const AMOVIESETUP_FILTER AMSFilterV = {&CLSID_Logitech_C201, L"Logitech C201",
+                   MERIT_DO_NOT_USE, 1, &AMSPinV};
 
-const AMOVIESETUP_FILTER AMSFilterV2 = {&CLSID_OBS_VirtualV2,
-					L"OBS Virtual Cam2", MERIT_DO_NOT_USE,
-					1, &AMSPinV};
+const AMOVIESETUP_FILTER AMSFilterV2 = {&CLSID_Logitech_C202,
+                    L"Logitech C202", MERIT_DO_NOT_USE,
+                    1, &AMSPinV};
 
-const AMOVIESETUP_FILTER AMSFilterV3 = {&CLSID_OBS_VirtualV3,
-					L"OBS Virtual Cam3", MERIT_DO_NOT_USE,
-					1, &AMSPinV};
+const AMOVIESETUP_FILTER AMSFilterV3 = {&CLSID_Logitech_C203,
+                    L"Logitech C203", MERIT_DO_NOT_USE,
+                    1, &AMSPinV};
 
-const AMOVIESETUP_FILTER AMSFilterV4 = {&CLSID_OBS_VirtualV4,
-					L"OBS Virtual Cam4", MERIT_DO_NOT_USE,
-					1, &AMSPinV};
-
-const AMOVIESETUP_FILTER AMSFilterA = {&CLSID_OBS_VirtualA,
-				       L"OBS Virtual Audio", MERIT_DO_NOT_USE,
-				       1, &AMSPinA};
+const AMOVIESETUP_FILTER AMSFilterV4 = {&CLSID_Logitech_C204,
+                    L"Logitech C204", MERIT_DO_NOT_USE,
+                    1, &AMSPinV};
 
 CFactoryTemplate g_Templates[NUM_VIDEO_FILTERS + 1] = {
-	{L"OBS-Camera", &CLSID_OBS_VirtualV, CreateInstance, NULL, &AMSFilterV},
-	{L"OBS-Camera2", &CLSID_OBS_VirtualV2, CreateInstance2, NULL,
-	 &AMSFilterV2},
-	{L"OBS-Camera3", &CLSID_OBS_VirtualV3, CreateInstance3, NULL,
-	 &AMSFilterV3},
-	{L"OBS-Camera4", &CLSID_OBS_VirtualV4, CreateInstance4, NULL,
-	 &AMSFilterV4},
-	{L"OBS-Audio", &CLSID_OBS_VirtualA, CVAudio::CreateInstance, NULL,
-	 &AMSFilterA}};
+    {L"Logitech C201", &CLSID_Logitech_C201, CreateInstance, NULL, &AMSFilterV},
+    {L"Logitech C202", &CLSID_Logitech_C202, CreateInstance2, NULL, &AMSFilterV2},
+    {L"Logitech C203", &CLSID_Logitech_C203, CreateInstance3, NULL, &AMSFilterV3},
+    {L"Logitech C204", &CLSID_Logitech_C204, CreateInstance4, NULL, &AMSFilterV4}};
 
 int g_cTemplates = sizeof(g_Templates) / sizeof(g_Templates[0]);
 

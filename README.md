@@ -1,4 +1,4 @@
-# OBS-VirtualCam 
+# OBS-VirtualCam
  
 ![CI Windows On-Push](https://github.com/miaulightouch/obs-virtual-cam/actions/workflows/main.yml/badge.svg)
 
